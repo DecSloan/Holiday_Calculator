@@ -1,7 +1,7 @@
 # Holiday_Calculator
 **Simple program to calculate total cost of a holiday, adding separate components e.g. flight + hotel**
 
-The aim of this task is to total the cost of a holiday based on user inputs for destination, amount of days in a hotel and whether they are renting a car.
+The aim of this task is to total the cost of a holiday based on user inputs for destination, amount of days in a hotel and whether they are renting a car or not.
 
 ---
 ## Functions
@@ -67,6 +67,7 @@ User asked for thier input which is stripped and converted to upper case.
 If input not in destination list then prompted to choose fro list.
 Once a correct city is chosen, index is found and the corresponding cost is found through the values list.
 Print statement with the chosen destination and the price is displayed.
+Plane cost is also converted to an integer so we can use it later for the total cost.
 
     print("Welcome to the Holiday calculator!")
     print(" ")
@@ -91,3 +92,77 @@ Print statement with the chosen destination and the price is displayed.
             print(f"{city_flight} airport not available, pleas select any from list below\n")
             print(*destinations_list, sep = "\n")
             print( )
+
+## Hotel
+
+Ask user to enter the amount of nights staying. 
+I made a while loop with a try - except block to mitigate errors that are not integers. 
+Error message 'please enter a valid number' is displayed with any other input.
+Once valid number entered we call upon our hotel cost function.
+
+    while True:
+        try:
+            nights = int(input("Please enter the number of nights you will " +
+                               "be staying at the Hotel?: "))
+            break
+        
+        except ValueError:
+            print("\nPlease enter a valid number.\n")
+
+    hotel_cost = nights * 90
+    multiply_test = multiply_90(nights)
+    print( )
+
+## Car Rental
+
+Ask the user if they will be renting a car, strip and convert answer to uppercase.
+If neither Y or N selected then prompted to enter one of them to continue.
+If Y selected user asked to enter total days they will be renting for, again the use of try - except block for invalid input.
+Once an integer has been entered call upon the car rental function to calculate and display the breakdown of cost.
+
+    while True:
+        car_rental_ans = input("Will you be renting a car while on your " +
+                               "Holiday? Y or N: ")
+        car_rental_ans = car_rental_ans.strip()
+        car_rental_ans = car_rental_ans.upper()
+
+        if car_rental_ans == "N":
+            print( )
+            print("N selected")
+            print( )
+            break
+
+        elif car_rental_ans == "Y":
+            print( )
+            print("Y selected")
+            print( )
+            break
+
+        else:
+            print( )
+            print("Pleas select either Y or N.")
+            print( )
+
+    if car_rental_ans == "Y":
+        while True:
+            try:
+                rental_days = int(input("Please enter the number of days will you " +
+                                    "be renting a car for?: "))
+                break
+        
+            except ValueError:
+                print("\nPlease enter a valid number.\n")
+
+        car_rental = rental_days * 75
+        multiply_test = multiply_75(rental_days)
+        print( )
+
+    else:
+        car_rental = 0
+
+    multiply_test = addition_total(plane_cost, hotel_cost, car_rental)
+
+If N selected then car rental cost is saved as 0 and the addition total function is called upon. 
+This prints the full cost and breakdown and the thank you message.
+
+If you would like to test out this code then the holiday_calculator.py has everything you need! 
